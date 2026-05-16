@@ -1,0 +1,22 @@
+import { ref } from 'vue'
+
+// maneja el estado de una peticion asincrona
+export function useApi<T>(fn: (...args: any[]) => Promise<T>) {
+  const data = ref<T | null>(null)
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+
+  async function execute(...args: any[]) {
+    loading.value = true
+    error.value = null
+    try {
+      data.value = await fn(...args)
+    } catch (err: any) {
+      error.value = err.response?.data?.error || 'Error al conectar con el servidor'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { data, loading, error, execute }
+}

@@ -1,1 +1,1 @@
-# Seeds placeholder - se implementará en Fase 1
+# seeds

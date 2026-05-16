@@ -1,1 +1,6 @@
-# Backend placeholder - se implementará en Fase 1
+from pymongo import MongoClient
+from bson import ObjectId
+from config import MONGO_URI
+
+client = MongoClient(MONGO_URI)
+db = client.get_default_database()

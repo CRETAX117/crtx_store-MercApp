@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 
-// maneja el estado de una peticion asincrona
 export function useApi<T>(fn: (...args: any[]) => Promise<T>) {
   const data = ref<T | null>(null)
   const loading = ref(false)

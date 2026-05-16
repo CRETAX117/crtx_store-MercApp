@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
 import { useProducts } from '../composables/useProducts'
+import { useCart } from '../composables/useCart'
 import ProductCard from '../components/ProductCard.vue'
 import type { Product } from '../types/Product'
 
@@ -16,19 +17,19 @@ const {
   categoryName
 } = useProducts()
 
+const { addItem } = useCart()
+
 onMounted(async () => {
   await loadCategories()
   await loadProducts()
 })
 
-// recarga cuando cambia la busqueda o el filtro
 watch([search, selectedCategory], () => {
   loadProducts()
 })
 
 function onAddedToCart(product: Product) {
-  // en la fase 3 se conecta con el composable useCart
-  alert(`${product.name} agregado al carrito`)
+  addItem(product)
 }
 </script>
 

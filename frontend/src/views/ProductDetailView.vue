@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getProductById } from '../services/products.service'
+import { getProductById, deleteProduct } from '../services/products.service'
 import { getCategories } from '../services/categories.service'
+import { useCart } from '../composables/useCart'
 import type { Product, Category } from '../types/Product'
 
 const route = useRoute()
 const router = useRouter()
+const { addItem } = useCart()
 
 const product = ref<Product | null>(null)
 const categories = ref<Category[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
+const deleting = ref(false)
+const added = ref(false)
 
 onMounted(async () => {
   try {
@@ -35,6 +39,26 @@ function getCategoryName(id: string) {
 
 function formatPrice(price: number) {
   return price.toFixed(2)
+}
+
+function handleAddToCart() {
+  if (!product.value) return
+  addItem(product.value)
+  added.value = true
+  setTimeout(() => { added.value = false }, 1500)
+}
+
+async function handleDelete() {
+  if (!product.value) return
+  if (!confirm('¿Eliminar este producto?')) return
+  deleting.value = true
+  try {
+    await deleteProduct(product.value._id)
+    router.push('/')
+  } catch {
+    alert('No se pudo eliminar el producto')
+    deleting.value = false
+  }
 }
 
 function goBack() {
@@ -67,13 +91,25 @@ function goBack() {
         </p>
 
         <div class="detail-actions">
-          <button class="btn btn-primary" :disabled="product.stock === 0">
-            Agregar al carrito
+          <button
+            class="btn btn-primary"
+            :disabled="product.stock === 0"
+            @click="handleAddToCart"
+          >
+            {{ added ? 'Agregado!' : 'Agregar al carrito' }}
           </button>
           <router-link :to="`/product/${product._id}/edit`" class="btn btn-outline">
             Editar
           </router-link>
         </div>
+
+        <button
+          class="btn btn-danger"
+          :disabled="deleting"
+          @click="handleDelete"
+        >
+          {{ deleting ? 'Eliminando...' : 'Eliminar producto' }}
+        </button>
       </div>
     </div>
   </div>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useCart } from './composables/useCart'
+
+const { totalItems } = useCart()
 </script>
 
 <template>
@@ -9,7 +12,10 @@ import { RouterLink, RouterView } from 'vue-router'
       <div class="nav-links">
         <router-link to="/" class="nav-link">Catalogo</router-link>
         <router-link to="/product/new" class="nav-link">Nuevo</router-link>
-        <router-link to="/cart" class="nav-link">Carrito</router-link>
+        <router-link to="/cart" class="nav-link nav-cart">
+          Carrito
+          <span v-if="totalItems > 0" class="cart-badge">{{ totalItems }}</span>
+        </router-link>
         <router-link to="/about" class="nav-link">Acerca de</router-link>
       </div>
     </nav>

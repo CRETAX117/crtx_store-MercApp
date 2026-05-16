@@ -3,7 +3,6 @@ import { getProducts } from '../services/products.service'
 import { getCategories } from '../services/categories.service'
 import type { Product, Category } from '../types/Product'
 
-// maneja el catalogo de productos con busqueda y filtro por categoria
 export function useProducts() {
   const products = ref<Product[]>([])
   const categories = ref<Category[]>([])

@@ -9,12 +9,11 @@
 | **Unidad** | 3 - Programacion del lado del cliente |
 | **Grupo** | N1 |
 | **Sede** | Cuenca |
+| **GitHub** | https://github.com/CRETAX117/crtx_store-MercApp |
 
 ## Descripcion
 
-Aplicacion web tipo catalogo de productos. Tiene un backend con Flask que expone una API REST y un frontend con Vue 3 que consume esa API.
-
-La idea es poder ver productos, buscarlos, filtrar por categoria, y manejar un carrito de compras.
+Aplicacion web tipo catalogo de productos. Tiene un backend con Flask que expone una API REST y un frontend hecho con Vue 3 que consume esa API. Se pueden ver productos, buscar por nombre, filtrar por categoria, ver el detalle de cada uno, crear/editar/eliminar productos, y manejar un carrito de compras que se guarda en el navegador.
 
 ## Tecnologias
 
@@ -23,7 +22,26 @@ La idea es poder ver productos, buscarlos, filtrar por categoria, y manejar un c
 - PyMongo para la conexion a MongoDB
 - Flask-CORS para permitir peticiones desde el frontend
 
-## Estructura
+### Frontend
+- Vue 3 con Composition API y TypeScript
+- Vite como herramienta de desarrollo
+- Vue Router para la navegacion entre paginas
+- Axios para las peticiones HTTP a la API
+
+### Base de datos
+- MongoDB
+
+## Funcionalidades
+
+- Catalogo de productos con busqueda por nombre y filtro por categoria
+- Vista de detalle de producto con ruta dinamica
+- CRUD completo: crear, editar y eliminar productos
+- Carrito de compras con persistencia en localStorage
+- Lazy loading de vistas con Suspense
+- Diseno responsivo mobile-first
+- API REST con validacion de datos y manejo de errores
+
+## Estructura del proyecto
 
 ```
 crtx_store-app/
@@ -39,7 +57,21 @@ crtx_store-app/
 │   │   └── categories_bp.py
 │   └── seeds/
 │       └── seed.py
+├── frontend/
+│   ├── src/
+│   │   ├── main.ts
+│   │   ├── App.vue
+│   │   ├── router/index.ts
+│   │   ├── services/
+│   │   ├── composables/
+│   │   ├── types/
+│   │   ├── views/
+│   │   ├── components/
+│   │   └── style.css
+│   ├── package.json
+│   └── vite.config.ts
 ├── README.md
+├── readme.txt
 ├── .gitignore
 └── .env.example
 ```
@@ -66,6 +98,15 @@ py app.py
 ```
 El servidor se levanta en http://localhost:5000
 
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Se abre en http://localhost:5173
+
 ## Notas
-- Configurar las variables de entorno en backend/.env (ver .env.example)
-- Ejecutar el seed la primera vez para tener datos de prueba
+- La base de datos ya esta configurada en el archivo .env
+- Para la primera vez hay que ejecutar el seed para tener datos de prueba
+- Revisar .env.example para ver las variables necesarias

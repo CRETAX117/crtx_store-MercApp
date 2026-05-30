@@ -110,3 +110,23 @@ Se abre en http://localhost:5173
 - La base de datos ya esta configurada en el archivo .env
 - Para la primera vez hay que ejecutar el seed para tener datos de prueba
 - Revisar .env.example para ver las variables necesarias
+
+## Despliegue
+
+La app esta desplegada en:
+- **Frontend:** _pendiente_ (Netlify)
+- **API:** _pendiente_ (Railway)
+- **Micrositio:** _pendiente_ (GitHub Pages)
+
+La base de datos esta en MongoDB Atlas (cluster M0 gratuito).
+
+### Variables de entorno para produccion
+
+Backend (en Railway):
+- `MONGO_URI` - URI de MongoDB Atlas
+- `PORT` - lo asigna Railway solo
+- `FRONTEND_URL` - URL de Netlify para CORS
+
+Frontend (antes de hacer build):
+- `VITE_API_URL` - URL de la API en Railway
+
